@@ -54,7 +54,10 @@ my %ext_formaters = (
             my $hours = int($secs_diff / 3600) || 0;
             return "$hours ".dngettext("perl-DateLocale", 'hour', 'hour', $hours );
         },
-        'yesterday'         => sub { dgettext("perl-DateLocale", 'yesterday' ) },
+        'yesterday'         => sub { 
+            my ($date, $secs_diff) = @_;        
+			return strftime(dgettext("perl-DateLocale", 'yesterday' ), @$date );
+		},
         'between_2_5days'   => sub {    
             my ($date, $secs_diff) = @_;        
             return lc(strftime("%A", @$date));
@@ -110,7 +113,7 @@ sub format_date_ext {
             if($days > 1 && $days < 5) {
                 #less than 5 days and more than 1 day ago
                 $formated->{$f} = $formater->{between_2_5days}->($date, $seconds);
-            } elsif ($now->[5] == $date->[5]) {
+            } elsif (strftime("%j", @$date) > $days) {
                 #at this year
                 $formated->{$f} = $formater->{this_year}->($date, $seconds);
             } else {
@@ -179,11 +182,10 @@ sub period_name {
 		return period_name_by_days( $days, $date );
 	}
 	else {
-		$fmt = '%d %B';
-		$fmt .= ' %Y' if $days > 365;
-		$fmt .= ' %H:%M' if $format ne 'old_notime';
+		my $fmt_name = strftime("%j", @$date) < $days ? 'yearday' : 'monthday';
+		$fmt_name .= $format ne 'old_notime' ? 'withtime' : 'withouttime';
+		return strftime(dgettext("perl-DateLocale", $fmt_name), @$date);
 	}
-	return strftime($fmt, @$date);
 }
 
 1;

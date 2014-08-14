@@ -36,6 +36,15 @@ msgstr "%d %B at %H:%M"
 msgid "yeardaywithtime"
 msgstr "%d %B %Y at %H:%M"
 
+msgid "weekdaywithouttime"
+msgstr "%A"
+
+msgid "monthdaywithouttime"
+msgstr "%d %B"
+
+msgid "yeardaywithouttime"
+msgstr "%d %B %Y"
+
 msgid "hour"
 msgid_plural "hour"
 msgstr[0] "hour"
@@ -45,16 +54,16 @@ msgid "fmtdateoccured"
 msgstr "On %B %d, %Y"
 
 msgid "today"
-msgstr "today at"
+msgstr "today at %H:%M"
 
 msgid "yesterday"
-msgstr "yesterday at"
+msgstr "yesterday at %H:%M"
 
 msgid "tommorow"
-msgstr "tommorow at"
+msgstr "tommorow at %H:%M"
 
 msgid "datommorow"
-msgstr "day after tommorow at"
+msgstr "day after tommorow at %H:%M"
 
 msgid "recent"
 msgstr "recently"

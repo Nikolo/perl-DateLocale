@@ -32,6 +32,15 @@ msgstr "%d %B, %H:%M"
 msgid "yeardaywithtime"
 msgstr "%d %B %Y, %H:%M"
 
+msgid "weekdaywithouttime"
+msgstr "%A"
+
+msgid "monthdaywithouttime"
+msgstr "%d %B"
+
+msgid "yeardaywithouttime"
+msgstr "%d %B %Y"
+
 msgid "hour"
 msgstr "сағат"
 
@@ -39,16 +48,16 @@ msgid "fmtdateoccured"
 msgstr "%d %B %Y жылдың"
 
 msgid "today"
-msgstr "бүгін,"
+msgstr "бүгін, %H:%M"
 
 msgid "yesterday"
-msgstr "кеше,"
+msgstr "кеше, %H:%M"
 
 msgid "tommorow"
-msgstr "ертең,"
+msgstr "ертең, %H:%M"
 
 msgid "datommorow"
-msgstr "бүрсігүні,"
+msgstr "бүрсігүні, %H:%M"
 
 msgid "mon1g"
 msgstr "қаңтары"

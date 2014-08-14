@@ -42,13 +42,13 @@ datadir  = $datadir
 
 %.gmo: %.po
 	$MSGFMT -o \$*.gmo share/po/\$*.po
-	\$(MKPATH) blib/lib/DateLocale/share/locale/\$*/LC_MESSAGES
+	\$(NOECHO) \$(MKPATH) blib/lib/DateLocale/share/locale/\$*/LC_MESSAGES
 	\$(CP) \$*.gmo blib/lib/DateLocale/share/locale/\$*/LC_MESSAGES/perl-DateLocale.mo
-	\$(CHMOD) 644 blib/lib/DateLocale/share/locale/\$*/LC_MESSAGES/perl-DateLocale.mo
+	\$(NOECHO) \$(CHMOD) 644 blib/lib/DateLocale/share/locale/\$*/LC_MESSAGES/perl-DateLocale.mo
 
 %.po: perl-DateLocale.pot
-	-msgmerge -w 83 share/po/\$*.po perl-DateLocale.pot >\$*.po~
-	-if cmp -s \$*.po~ \$*.po; then rm -f \$*.po~ ; else mv \$*.po~ \$*.po; fi
+	\$(NOECHO) -msgmerge -w 83 share/po/\$*.po perl-DateLocale.pot >\$*.po~
+	\$(NOECHO) -if cmp -s \$*.po~ \$*.po; then rm -f \$*.po~ ; else mv \$*.po~ \$*.po; fi
 
 all :: $alltarget
 
@@ -61,8 +61,8 @@ update-po: update-pot
 perl-DateLocale.pot: update-pot
 
 update-pot: force
-	xgettext --from-code="UTF-8" `find . -type f -print | grep \'\\.pm\$\$\'` -o perl-DateLocale.pot
-	#if cmp -s perl-DateLocale.pot~ perl-DateLocale.pot; then rm -f perl-DateLocale.pot~ ; else mv perl-DateLocale.pot~ perl-DateLocale.pot; fi
+	\$(NOECHO) xgettext --from-code="UTF-8" `find . -type f -print | grep \'\\.pm\$\$\'` -o perl-DateLocale.pot
+	\$(NOECHO) #if cmp -s perl-DateLocale.pot~ perl-DateLocale.pot; then rm -f perl-DateLocale.pot~ ; else mv perl-DateLocale.pot~ perl-DateLocale.pot; fi
 
 force:
 
