@@ -26,11 +26,26 @@ msgstr[0] "минута"
 msgstr[1] "минуты"
 msgstr[2] "минут"
 
+msgid "shortmin"
+msgstr "мин"
+
+msgid "weekdaywithtime"
+msgstr "%A в %H:%M"
+
+msgid "monthdaywithtime"
+msgstr "%d %B в %H:%M"
+
+msgid "yeardaywithtime"
+msgstr "%d %B %Y в %H:%M"
+
 msgid "hour"
 msgid_plural "hour"
 msgstr[0] "час"
 msgstr[1] "часа"
 msgstr[2] "часов"
+
+msgid "fmtdateoccured"
+msgstr "%d %B %Y года"
 
 msgid "today"
 msgstr "сегодня в"

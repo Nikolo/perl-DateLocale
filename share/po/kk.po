@@ -20,8 +20,23 @@ msgstr "күн"
 msgid "min"
 msgstr "минут"
 
+msgid "shortmin"
+msgstr "мин"
+
+msgid "weekdaywithtime"
+msgstr "%A, %H:%M"
+
+msgid "monthdaywithtime"
+msgstr "%d %B, %H:%M"
+
+msgid "yeardaywithtime"
+msgstr "%d %B %Y, %H:%M"
+
 msgid "hour"
 msgstr "сағат"
+
+msgid "fmtdateoccured"
+msgstr "%d %B %Y жылдың"
 
 msgid "today"
 msgstr "бүгін,"

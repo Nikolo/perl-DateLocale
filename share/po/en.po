@@ -24,10 +24,25 @@ msgid_plural "min"
 msgstr[0] "minute"
 msgstr[1] "minutes"
 
+msgid "shortmin"
+msgstr "min"
+
+msgid "weekdaywithtime"
+msgstr "%A at %H:%M"
+
+msgid "monthdaywithtime"
+msgstr "%d %B at %H:%M"
+
+msgid "yeardaywithtime"
+msgstr "%d %B %Y at %H:%M"
+
 msgid "hour"
 msgid_plural "hour"
 msgstr[0] "hour"
 msgstr[1] "hours"
+
+msgid "fmtdateoccured"
+msgstr "On %B %d, %Y"
 
 msgid "today"
 msgstr "today at"

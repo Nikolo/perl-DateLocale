@@ -41,56 +41,149 @@ sub _fmt_redef {
 	$fmt;
 }
 
+my %ext_formaters = (
+    'long' => {
+        'less_1min'         => sub { dgettext("perl-DateLocale", 'recent' ) },
+        'less_1hour'        => sub { 
+            my ($date, $secs_diff) = @_; 
+            my $mins = int($secs_diff / 60) || 0;
+            return "$mins ".dgettext("perl-DateLocale", 'shortmin' );
+        },
+        'today'             => sub {
+            my ($date, $secs_diff) = @_;
+            my $hours = int($secs_diff / 3600) || 0;
+            return "$hours ".dngettext("perl-DateLocale", 'hour', 'hour', $hours );
+        },
+        'yesterday'         => sub { dgettext("perl-DateLocale", 'yesterday' ) },
+        'between_2_5days'   => sub {    
+            my ($date, $secs_diff) = @_;        
+            return lc(strftime("%A", @$date));
+        },
+        'this_year'         => sub { 
+            my ($date, $secs_diff) = @_;
+            return strftime("%d %B", @$date);
+        },
+        'before_year'       => sub {
+            my ($date, $secs_diff) = @_;
+            return strftime("%d %b %y", @$date);
+        },
+    },
+    'long_tooltip' => {
+        'less_1min'         => sub { dgettext("perl-DateLocale", 'recent' ) },
+        'less_1hour'        => sub { 
+            my ($date, $secs_diff) = @_; 
+            my $mins = int($secs_diff / 60) || 0;
+			return "$mins ".dngettext("perl-DateLocale", 'min', 'min', $mins );
+        },
+        'today'             => sub {
+            my ($date, $secs_diff) = @_;
+            my $hours = int($secs_diff / 3600) || 0;
+			return "$hours ".dngettext("perl-DateLocale", 'hour', 'hour', $hours );
+        },
+        'yesterday'         => sub { 
+            my ($date, $secs_diff) = @_;        
+            return period_name_by_days(1, $date);
+        },
+        'between_2_5days'   => sub {    
+            my ($date, $secs_diff) = @_;        
+			return strftime(dgettext("perl-DateLocale", 'weekdaywithtime' ), @$date);
+        },
+        'this_year'         => sub { 
+            my ($date, $secs_diff) = @_;
+			return strftime(dgettext("perl-DateLocale", 'monthdaywithtime' ), @$date);
+        },
+        'before_year'       => sub {
+            my ($date, $secs_diff) = @_;
+			return strftime(dgettext("perl-DateLocale", 'yeardaywithtime' ), @$date);
+        },
+    },
+);
+
+sub format_date_ext {
+    my ($days, $seconds, $date, $format) = @_;
+    my $formated;
+    for my $f (@$format) {
+        my $formater = $ext_formaters{$f};
+        die "Format $f not supported" unless $formater;
+        if ($days > 1) {
+            #more than 1 day ago
+            if($days > 1 && $days < 5) {
+                #less than 5 days and more than 1 day ago
+                $formated->{$f} = $formater->{between_2_5days}->($date, $seconds);
+            } elsif ($now->[5] == $date->[5]) {
+                #at this year
+                $formated->{$f} = $formater->{this_year}->($date, $seconds);
+            } else {
+                #not at this year
+                $formated->{$f} = $formater->{before_year}->($date, $seconds);
+            }
+        } elsif ($days == 1) {
+            #yesterday
+            $formated->{$f} = $formater->{yesterday}->($date, $seconds);
+        } else {
+            #today
+            if($seconds < 60) {
+                #less than 1 minute
+                $formated->{$f} = $formater->{less_1min}->($date, $seconds);
+            } elsif ($seconds < 60*60) {
+                #less than 1 hour
+                $formated->{$f} = $formater->{less_1hour}->($date, $seconds);
+            } else {
+                #more than 1 hour
+                $formated->{$f} = $formater->{today}->($date, $seconds);
+            }
+        }
+    }
+    return $formated;
+}
+
 sub strftime {
 	my ($fmt) = shift;
 	my $fmt_redef = _fmt_redef($fmt, @_);
 	return POSIX::strftime($fmt_redef, @_);
 } 
 
-sub get_ndays {
-	my $count = shift;
-	my $word = dcngettext("perl-DateLocale", "day", "day", $count, LC_TIME);
-	die "Not localized for ".locale() if $word eq 'day';
-	return $count." ".$word;
+sub occured_date {
+	my ($date) = @_;
+	return strftime( dgettext("perl-DateLocale", 'fmtdateoccured' ), @$date );
 }
 
-1;
-__END__
-use Mouse;
-use FindBin;
-
-has provider => (is => 'rw', isa => 'Object');
-
-sub BEGIN {
-	my $path = $INC{__PACKAGE__.'.pm'};
-	substr($path, 0, -3, '/');
-	my %langs = ();
-	my %locales = ();
-	my $DIR;
-	foreach ( readdir $DIR, $path ){
-		next unless /\.pm$/;
-		my $lang = __PACKAGE__."::".(/(.*)\.pm$/);
-		eval "use $lang";
-		die $@ if $@;
-		$langs{$lang->lang_name()} = $lang;
-		$locales{$lang->locale_name()} = $lang;
+sub period_name_by_days {
+	my( $days, $date ) = @_;
+	my $gt_name = '';
+	if ($days == 1) {
+		$gt_name = 'yesterday';
 	}
-	__PACKAGE__->meta->add_attribute('locales' => (is => 'ro', isa => 'Hash', default => %locales));
-	__PACKAGE__->meta->add_attribute('languages' => (is => 'ro', isa => 'Hash', default => %langs));
-}
-
-sub BUILD {
-	my ($self, %param) = @_;
-	if( $param{locale} ){
-		$self->provider($self->meta->locales->{$param{locale}});
+	elsif ($days == 0) {
+		$gt_name = 'today';
 	}
-	elsif( $param{language} ){
-		$self->provider($self->meta->languages->{$param{language}});
+	elsif ($days == -1) {
+		$gt_name = 'tommorow';
+	}
+	elsif ($days == -2) {
+		$gt_name = 'datommorow';
+	}
+	my $fmt = '';
+	if( $gt_name ){
+		$fmt = dgettext("perl-DateLocale", $gt_name );
 	}
 	else {
-		die "locale or language must be set!";
+		die( $days." not supported by period_name_by_days" );
 	}
-	die "Language file not found for ".values(%param) unless $self->provider();
+	return strftime($fmt, @$date);
+}
+
+sub period_name {
+	my ($days, $date, $format) = @_;
+	if( $days <= 1 and $days >= -2 ){
+		return period_name_by_days( $days, $date );
+	}
+	else {
+		$fmt = '%d %B';
+		$fmt .= ' %Y' if $days > 365;
+		$fmt .= ' %H:%M' if $format ne 'old_notime';
+	}
+	return strftime($fmt, @$date);
 }
 
 1;
