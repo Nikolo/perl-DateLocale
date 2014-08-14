@@ -1,5 +1,5 @@
 use ExtUtils::MakeMaker;
-
+use utf8;
 my $MSGFMT = 'msgfmt';
 
 print "Portable message objects...";
@@ -23,10 +23,10 @@ print "\n";
 WriteMakefile(
     NAME              => 'DateLocale',
     VERSION_FROM      => 'lib/DateLocale.pm', # finds $VERSION
-#	MAN3PODS          => {
-#		'lib/AnyEvent/Net/SafeBrowsing2.pm'           => 'blib/man3/AnyEvent::Net::SafeBrowsing2.3',
-#		'lib/AnyEvent/Net/SafeBrowsing2/Tarantool.pm' => 'blib/man3/AnyEvent::Net::SafeBrowsing2::Tarantool.3',
-#	},
+	MAN3PODS          => {
+		'lib/DateLocale.pm'                => 'blib/man3/DateLocale.3',
+		'lib/DateLocale/Language/ru_RU.pm' => 'blib/man3/DateLocale::Language::ru_RU.3',
+	},
     PREREQ_PM         => {
 		Locale::Messages => 0,
 		POSIX            => 0,
