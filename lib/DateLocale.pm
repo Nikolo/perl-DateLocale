@@ -4,7 +4,7 @@ use strict;
 use utf8;
 use POSIX qw/setlocale/;
 use Locale::Messages qw(:locale_h :libintl_h);
-our $VERSION = '0.09';
+our $VERSION = '0.10';
 our $LANG;
 
 sub import {
@@ -28,7 +28,6 @@ sub locale {
 		$tmp = "DateLocale::Language::$tmp";
 		eval "use $tmp;";
 		$pkg = $tmp unless $@;
-		print $@;
 	}
 	$pkg ||= 'C';
 	return $pkg;
