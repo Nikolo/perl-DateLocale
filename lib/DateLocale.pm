@@ -17,6 +17,7 @@ sub import {
 
 sub locale {
 	my $pkg = '';
+	local $SIG{__DIE__};
 	if( $LANG ){
 		$LANG =~ s/^([a-zA-Z_]+).*$/$1/;
 		my $tmp = "DateLocale::Language::$LANG";
