@@ -1,6 +1,7 @@
 #!/usr/bin/env perl
 
 use strict;
+use utf8;
 use Test::More tests => 87;
 use POSIX qw/setlocale/;
 use DateLocale;
@@ -93,7 +94,7 @@ is_deeply(DateLocale::format_date_ext(0, 3605, \@time, ['long', 'long_tooltip'])
 is_deeply(DateLocale::format_date_ext(0, 3605*2, \@time, ['long', 'long_tooltip']), {long => '2 hours', long_tooltip => '2 hours'}, 'date_ext 2 hours and 10 sec');
 is_deeply(DateLocale::format_date_ext(0, 3605*5, \@time, ['long', 'long_tooltip']), {long => '5 hours', long_tooltip => '5 hours'}, 'date_ext 5 hours and 25 sec');
 is_deeply(DateLocale::format_date_ext(1, 5, \@time, ['long', 'long_tooltip']), {long => 'yesterday at 11:22', long_tooltip => 'yesterday at 11:22'}, 'date_ext 1 day and 5 sec');
-is_deeply(DateLocale::format_date_ext($_, 5, \@time, ['long', 'long_tooltip']), {long => 'tuesday', long_tooltip => 'Tuesday at 11:22'}, 'date_ext '.$_.' days and 5 sec') for qw /2 3 4/;
+is_deeply(DateLocale::format_date_ext($_, 5, \@time, ['long', 'long_tooltip']), {long => 'tuesday', long_tooltip => 'tuesday at 11:22'}, 'date_ext '.$_.' days and 5 sec') for qw /2 3 4/;
 is_deeply(DateLocale::format_date_ext(5, 5, \@time, ['long', 'long_tooltip']), {long => '11 March', long_tooltip => '11 March at 11:22'}, 'date_ext 5 days and 5 sec');
-is_deeply(DateLocale::format_date_ext(200, 5, \@time, ['long', 'long_tooltip']), {long => '11 Mar 14', long_tooltip => '11 March 2014 at 11:22'}, 'date_ext 200 days and 5 sec');
+is_deeply(DateLocale::format_date_ext(200, 5, \@time, ['long', 'long_tooltip']), {long => '11 mar 14', long_tooltip => '11 March 2014 at 11:22'}, 'date_ext 200 days and 5 sec');
 
