@@ -1,8 +1,8 @@
 use ExtUtils::MakeMaker;
 use utf8;
 use lib 'inc';
-use Devel::CheckLib;
-check_lib_or_exit( lib => 'gettextpo' );
+#use Devel::CheckLib;
+#check_lib_or_exit( lib => 'gettextpo' );
 
 my $MSGFMT = 'msgfmt';
 
