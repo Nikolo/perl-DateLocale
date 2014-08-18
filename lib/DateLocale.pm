@@ -25,7 +25,7 @@ sub locale {
 		$pkg = $tmp unless $@;
 	}
 	unless( $pkg ){
-		my $tmp = setlocale(POSIX::LC_TIME);
+		my $tmp = setlocale(POSIX::LC_TIME());
 		$tmp =~ s/^([a-zA-Z_]+).*$/$1/;
 		$tmp = "DateLocale::Language::$tmp";
 		eval "use $tmp;";
