@@ -38,7 +38,7 @@ WriteMakefile(
 		POSIX               => 0,
 	},
 	AUTHOR         => 'Nikolay Shulyakovskiy <shulyakovskiy@mail.ru>',
-	'clean' => { FILES => $mofiles." perl-DateLocale.pot" }
+	'clean' => { FILES => $mofiles." perl-DateLocale.pot ".join(" ",map {$_.".po"}  @$pofiles)." META.yml" }
 );
 
 my $postamble = "generate.po: perl-DateLocale.pot\n";
