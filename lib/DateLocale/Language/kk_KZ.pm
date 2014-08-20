@@ -5,11 +5,11 @@ use strict;
 use Locale::Messages qw(:locale_h :libintl_h);
 
 sub format_OB {
-	return dgettext "perl-DateLocale", "mon".($_[4]+1);
+	return dcgettext "perl-DateLocale", "mon".($_[4]+1), LC_TIME();
 }
 
 sub format_B {
-	return dgettext "perl-DateLocale", "mon".($_[4]+1)."g";
+	return dcgettext "perl-DateLocale", "mon".($_[4]+1)."g", LC_TIME();
 }
 
 1;

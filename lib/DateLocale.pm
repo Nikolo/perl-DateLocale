@@ -2,6 +2,7 @@ package DateLocale;
 
 use strict;
 use utf8;
+use FindBin;
 use POSIX qw/setlocale/;
 use Locale::Messages qw(:locale_h :libintl_h);
 use Encode;
@@ -10,6 +11,9 @@ our $LANG;
 
 sub import {
 	my $path = __FILE__;
+	if( $path !~ m{^/} ){
+		$path = $FindBin::Bin.'/'.$path;
+	}
 	$path =~ s{\.pm$}{/share/locale};
 	textdomain "perl-DateLocale";
 	bindtextdomain "perl-DateLocale", $path;
@@ -44,20 +48,20 @@ sub _fmt_redef {
 
 my %ext_formaters = (
     'long' => {
-        'less_1min'         => sub {dgettext("perl-DateLocale", 'recent' ) },
+        'less_1min'         => sub {dcgettext("perl-DateLocale", 'recent', LC_TIME() ) },
         'less_1hour'        => sub { 
             my ($date, $secs_diff) = @_; 
             my $mins = int($secs_diff / 60) || 0;
-            return "$mins ".dgettext("perl-DateLocale", 'shortmin' );
+            return "$mins ".dcgettext("perl-DateLocale", 'shortmin', LC_TIME() );
         },
         'today'             => sub {
             my ($date, $secs_diff) = @_;
             my $hours = int($secs_diff / 3600) || 0;
-            return "$hours ".dngettext("perl-DateLocale", 'hour', 'hour', $hours );
+            return "$hours ".dcngettext("perl-DateLocale", 'hour', 'hour', $hours, LC_TIME() );
         },
         'yesterday'         => sub { 
             my ($date, $secs_diff) = @_;        
-			return strftime(dgettext("perl-DateLocale", 'yesterday' ), @$date );
+			return strftime(dcgettext("perl-DateLocale", 'yesterday', LC_TIME() ), @$date );
 		},
         'between_2_5days'   => sub {    
             my ($date, $secs_diff) = @_;
@@ -73,16 +77,16 @@ my %ext_formaters = (
         },
     },
     'long_tooltip' => {
-        'less_1min'         => sub { dgettext("perl-DateLocale", 'recent' ) },
+        'less_1min'         => sub { dcgettext("perl-DateLocale", 'recent', LC_TIME() ) },
         'less_1hour'        => sub { 
             my ($date, $secs_diff) = @_; 
             my $mins = int($secs_diff / 60) || 0;
-			return "$mins ".dngettext("perl-DateLocale", 'min', 'min', $mins );
+			return "$mins ".dcngettext("perl-DateLocale", 'min', 'min', $mins, LC_TIME() );
         },
         'today'             => sub {
             my ($date, $secs_diff) = @_;
             my $hours = int($secs_diff / 3600) || 0;
-			return "$hours ".dngettext("perl-DateLocale", 'hour', 'hour', $hours );
+			return "$hours ".dcngettext("perl-DateLocale", 'hour', 'hour', $hours, LC_TIME() );
         },
         'yesterday'         => sub { 
             my ($date, $secs_diff) = @_;        
@@ -90,15 +94,15 @@ my %ext_formaters = (
         },
         'between_2_5days'   => sub {    
             my ($date, $secs_diff) = @_;        
-			return lc(strftime(dgettext("perl-DateLocale", 'weekdaywithtime' ), @$date));
+			return lc(strftime(dcgettext("perl-DateLocale", 'weekdaywithtime', LC_TIME() ), @$date));
         },
         'this_year'         => sub { 
             my ($date, $secs_diff) = @_;
-			return strftime(dgettext("perl-DateLocale", 'monthdaywithtime' ), @$date);
+			return strftime(dcgettext("perl-DateLocale", 'monthdaywithtime', LC_TIME() ), @$date);
         },
         'before_year'       => sub {
             my ($date, $secs_diff) = @_;
-			return strftime(dgettext("perl-DateLocale", 'yeardaywithtime' ), @$date);
+			return strftime(dcgettext("perl-DateLocale", 'yeardaywithtime', LC_TIME() ), @$date);
         },
     },
 );
@@ -216,7 +220,7 @@ Arguments
 
 sub occured_date {
 	my ($date) = @_;
-	return strftime( dgettext("perl-DateLocale", 'fmtdateoccured' ), @$date );
+	return strftime( dcgettext("perl-DateLocale", 'fmtdateoccured', LC_TIME() ), @$date );
 }
 
 =head2 period_name_by_days
@@ -256,7 +260,7 @@ sub period_name_by_days {
 	}
 	my $fmt = '';
 	if( $gt_name ){
-		$fmt = dgettext("perl-DateLocale", $gt_name );
+		$fmt = dcgettext("perl-DateLocale", $gt_name, LC_TIME() );
 	}
 	else {
 		die( $days." not supported by period_name_by_days" );
@@ -296,7 +300,7 @@ sub period_name {
 	else {
 		my $fmt_name = strftime("%j", @$date) < $days ? 'yearday' : 'monthday';
 		$fmt_name .= $format ne 'old_notime' ? 'withtime' : 'withouttime';
-		return strftime(dgettext("perl-DateLocale", $fmt_name), @$date);
+		return strftime(dcgettext("perl-DateLocale", $fmt_name, LC_TIME()), @$date);
 	}
 }
 

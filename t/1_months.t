@@ -7,7 +7,6 @@ use POSIX qw/setlocale/;
 use DateLocale;
 
 my @time = qw/33 22 11 11 2 114/;
-setlocale(POSIX::LC_MESSAGES, 'ru_RU.UTF-8');
 setlocale(POSIX::LC_TIME, 'ru_RU.UTF-8');
 is(DateLocale::strftime('%OB %B', @time), 'март марта', 'Month name');
 is(DateLocale::strftime( '%Y-%m-%d', @time), '2014-03-11', 'Numeric date');
@@ -38,7 +37,6 @@ is_deeply(DateLocale::format_date_ext(5, 5, \@time, ['long', 'long_tooltip']), {
 is_deeply(DateLocale::format_date_ext(200, 5, \@time, ['long', 'long_tooltip']), {long => '11 мар 14', long_tooltip => '11 марта 2014 в 11:22'}, 'date_ext 200 days and 5 sec');
 
 
-setlocale(POSIX::LC_MESSAGES, 'uk_UA.UTF-8');
 setlocale(POSIX::LC_TIME, 'uk_UA.UTF-8');
 is(DateLocale::strftime('%OB %B', @time), 'березень березня', 'Month name');
 is(DateLocale::strftime( '%Y-%m-%d', @time), '2014-03-11', 'Numeric date');
@@ -69,7 +67,6 @@ is_deeply(DateLocale::format_date_ext(5, 5, \@time, ['long', 'long_tooltip']), {
 is_deeply(DateLocale::format_date_ext(200, 5, \@time, ['long', 'long_tooltip']), {long => '11 бер 14', long_tooltip => '11 березня 2014 о 11:22'}, 'date_ext 200 days and 5 sec');
 
 
-setlocale(POSIX::LC_MESSAGES, 'kk_KZ.UTF-8');
 setlocale(POSIX::LC_TIME, 'kk_KZ.UTF-8');
 is(DateLocale::strftime('%OB %B', @time), 'наурыз наурызы', 'Month name');
 is(DateLocale::strftime( '%Y-%m-%d', @time), '2014-03-11', 'Numeric date');
@@ -99,7 +96,6 @@ is_deeply(DateLocale::format_date_ext($_, 5, \@time, ['long', 'long_tooltip']), 
 is_deeply(DateLocale::format_date_ext(5, 5, \@time, ['long', 'long_tooltip']), {long => '11 наурызы', long_tooltip => '11 наурызы, 11:22'}, 'date_ext 5 days and 5 sec');
 is_deeply(DateLocale::format_date_ext(200, 5, \@time, ['long', 'long_tooltip']), {long => '11 нау 14', long_tooltip => '11 наурызы 2014, 11:22'}, 'date_ext 200 days and 5 sec');
 
-setlocale(POSIX::LC_MESSAGES, 'en_US.UTF-8');
 setlocale(POSIX::LC_TIME, 'en_US.UTF-8');
 is(DateLocale::strftime('%OB %B', @time), 'March March', 'Month name');
 is(DateLocale::strftime( '%Y-%m-%d', @time), '2014-03-11', 'Numeric date');

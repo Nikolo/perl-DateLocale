@@ -21,7 +21,7 @@ for (<./share/po/*.po>) {
 	my ($po) = /.\/share\/po\/(.*)\.po$/;
     print " $po";
 	push @$pofiles, $po;
-	$uninstall .= "	\$(RM_F) \$(datadir)/locale/$po/LC_MESSAGES/perl-DateLocale.mo\n";
+	$uninstall .= "	\$(RM_F) \$(datadir)/locale/$po/LC_TIME/perl-DateLocale.mo\n";
     $mofiles   .= " $po.gmo";
 }
 print "\n";
@@ -51,9 +51,9 @@ my $postamble = "generate.po: perl-DateLocale.pot\n";
 	$postamble .= $/."generate.gmo: generate.po".$/;
 	foreach (@$pofiles){
 		$postamble .= "\t$MSGFMT -o $_.gmo share/po/$_.po$/";
-		$postamble .= "\t".'$(NOECHO) $(MKPATH) blib/lib/DateLocale/share/locale/'.$_.'/LC_MESSAGES'.$/;
-		$postamble .= "\t".'$(NOECHO) $(CP) '.$_.'.gmo blib/lib/DateLocale/share/locale/'.$_.'/LC_MESSAGES/perl-DateLocale.mo'.$/;
-		$postamble .= "\t".'$(NOECHO) $(CHMOD) 644 blib/lib/DateLocale/share/locale/'.$_.'/LC_MESSAGES/perl-DateLocale.mo'.$/;
+		$postamble .= "\t".'$(NOECHO) $(MKPATH) blib/lib/DateLocale/share/locale/'.$_.'/LC_TIME'.$/;
+		$postamble .= "\t".'$(NOECHO) $(CP) '.$_.'.gmo blib/lib/DateLocale/share/locale/'.$_.'/LC_TIME/perl-DateLocale.mo'.$/;
+		$postamble .= "\t".'$(NOECHO) $(CHMOD) 644 blib/lib/DateLocale/share/locale/'.$_.'/LC_TIME/perl-DateLocale.mo'.$/;
 	}
 $postamble .= <<XXX
 all :: generate.gmo 
