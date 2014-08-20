@@ -6,8 +6,7 @@ use FindBin;
 use POSIX qw/setlocale/;
 use Locale::Messages qw(:locale_h :libintl_h);
 use Encode;
-our $VERSION = '1.02';
-our $LANG;
+our $VERSION = '1.05';
 
 sub import {
 	my $path = __FILE__;
@@ -17,24 +16,17 @@ sub import {
 	$path =~ s{\.pm$}{/share/locale};
 	textdomain "perl-DateLocale";
 	bindtextdomain "perl-DateLocale", $path;
+	Locale::Messages::nl_putenv ('OUTPUT_CHARSET=UTF-8');
 }
 
 sub locale {
 	my $pkg = '';
 	local $SIG{__DIE__};
-	if( $LANG ){
-		$LANG =~ s/^([a-zA-Z_]+).*$/$1/;
-		my $tmp = "DateLocale::Language::$LANG";
-		eval "use $tmp;";
-		$pkg = $tmp unless $@;
-	}
-	unless( $pkg ){
-		my $tmp = setlocale(POSIX::LC_TIME());
-		$tmp =~ s/^([a-zA-Z_]+).*$/$1/;
-		$tmp = "DateLocale::Language::$tmp";
-		eval "use $tmp;";
-		$pkg = $tmp unless $@;
-	}
+	my $tmp = setlocale(POSIX::LC_TIME());
+	$tmp =~ s/^([a-zA-Z_]+).*$/$1/;
+	$tmp = "DateLocale::Language::$tmp";
+	eval "use $tmp;";
+	$pkg = $tmp unless $@;
 	$pkg ||= 'DateLocale::Language::C';
 	return $pkg;
 }

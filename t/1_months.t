@@ -2,6 +2,7 @@
 
 use strict;
 use utf8;
+#use open ':std', ':encoding(utf8)';
 use Test::More tests => 116;
 use POSIX qw/setlocale/;
 use DateLocale;
