@@ -5,14 +5,20 @@ use utf8;
 use POSIX qw/setlocale/;
 use Locale::Messages qw(:locale_h :libintl_h);
 use Encode;
-our $VERSION = '1.10';
+our $VERSION = '1.15';
 
-sub import {
-	my $path = __FILE__;
-	$path =~ s{\.pm$}{/share/locale};
+our $share_path = __FILE__;
+$share_path =~ s{\.pm$}{/share/locale};
+
+sub change_locale {
+	my $locale = shift;
+	my $res = setlocale(POSIX::LC_TIME(), $locale); #for linux
+
+	$ENV{LC_TIME} = $locale; #for freebsd
 	textdomain "perl-DateLocale";
-	bindtextdomain "perl-DateLocale", $path;
+	bindtextdomain "perl-DateLocale", $share_path;
 	Locale::Messages::nl_putenv ('OUTPUT_CHARSET=UTF-8');
+	return $res
 }
 
 sub locale {

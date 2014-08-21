@@ -9,7 +9,7 @@ use DateLocale;
 
 my $count_test = 0;
 my @time = qw/33 22 11 11 2 114/;
-if(setlocale(POSIX::LC_TIME, 'ru_RU.UTF-8')){
+if(DateLocale::change_locale('ru_RU.UTF-8')){
 	is(DateLocale::strftime('%OB %B', @time), 'март марта', 'Month name');
 	is(DateLocale::strftime( '%Y-%m-%d', @time), '2014-03-11', 'Numeric date');
 	is(DateLocale::strftime("%d %B %Y", @time), '11 марта 2014', 'Full date');
@@ -44,7 +44,7 @@ else {
 }
 
 
-if(setlocale(POSIX::LC_TIME, 'uk_UA.UTF-8')){
+if(DateLocale::change_locale('uk_UA.UTF-8')){
 	is(DateLocale::strftime('%OB %B', @time), 'березень березня', 'Month name');
 	is(DateLocale::strftime( '%Y-%m-%d', @time), '2014-03-11', 'Numeric date');
 	is(DateLocale::strftime("%d %B %Y", @time), '11 березня 2014', 'Full date');
@@ -79,7 +79,7 @@ else {
 }
 
 
-if(setlocale(POSIX::LC_TIME, 'kk_KZ.UTF-8')){
+if(DateLocale::change_locale('kk_KZ.UTF-8')){
 	is(DateLocale::strftime('%OB %B', @time), 'наурыз наурызы', 'Month name');
 	is(DateLocale::strftime( '%Y-%m-%d', @time), '2014-03-11', 'Numeric date');
 	is(DateLocale::strftime("%d %B %Y", @time), '11 наурызы 2014', 'Full date');
@@ -114,7 +114,7 @@ else {
 }
 
 
-if(setlocale(POSIX::LC_TIME, 'en_US.UTF-8')){
+if(DateLocale::change_locale('en_US.UTF-8')){
 	is(DateLocale::strftime('%OB %B', @time), 'March March', 'Month name');
 	is(DateLocale::strftime( '%Y-%m-%d', @time), '2014-03-11', 'Numeric date');
 	is(DateLocale::strftime("%d %B %Y", @time), '11 March 2014', 'Full date');
