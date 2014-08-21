@@ -14,7 +14,7 @@ sub change_locale {
 	my $locale = shift;
 	my $res = setlocale(POSIX::LC_TIME(), $locale); #for linux
 
-	$ENV{LC_TIME} = $locale; #for freebsd
+	$ENV{LC_ALL} = $locale; #for freebsd
 	textdomain "perl-DateLocale";
 	bindtextdomain "perl-DateLocale", $share_path;
 	Locale::Messages::nl_putenv ('OUTPUT_CHARSET=UTF-8');
