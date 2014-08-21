@@ -5,7 +5,7 @@ use utf8;
 use POSIX qw/setlocale/;
 use Locale::Messages qw(:locale_h :libintl_h);
 use Encode;
-our $VERSION = '1.07';
+our $VERSION = '1.10';
 
 sub import {
 	my $path = __FILE__;

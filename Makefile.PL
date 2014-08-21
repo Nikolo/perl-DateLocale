@@ -10,8 +10,10 @@ repository      'https://github.com/Nikolo/perl-DateLocale';
 
 my $MSGFMT = 'msgfmt';
 my $xgettext = 'xgettext';
+my $msgmerge = 'msgmerge';
 requires_external_bin( $MSGFMT );
 requires_external_bin( $xgettext );
+requires_external_bin( $msgmerge );
 my $mofiles = "";
 my $pofiles = [];
 my $uninstall = "";
@@ -25,7 +27,12 @@ for (<./share/po/*.po>) {
     $mofiles   .= " $po.gmo";
 }
 print "\n";
-
+my $loc = join("|", grep {!/^C$/} @$pofiles);
+my @locales = `locale -a | grep 'UTF-8' | egrep '^(?:$loc)'`;
+unless( @locales ){
+	print "Need to install one of $loc locale";
+	exit(0);
+}
 WriteMakefile(
 	'NAME'         => 'DateLocale',
 	'VERSION_FROM' => 'lib/DateLocale.pm',      # finds $VERSION
@@ -43,11 +50,11 @@ WriteMakefile(
 
 my $postamble = "generate.po: perl-DateLocale.pot\n";
 	foreach (@$pofiles){
-		$postamble .= "\t".'$(NOECHO) -msgmerge -w 83 share/po/'.$_.'.po perl-DateLocale.pot >'.$_.'.po~'.$/;
+		$postamble .= "\t".'$(NOECHO) -'.$msgmerge.' -w 83 share/po/'.$_.'.po perl-DateLocale.pot >'.$_.'.po~'.$/;
 		$postamble .= "\t".'$(NOECHO) -if cmp -s '.$_.'.po~ '.$_.'.po; then rm -f '.$_.'.po~ ; else mv '.$_.'.po~ '.$_.'.po; fi'.$/
 	}
 	$postamble .= $/.'perl-DateLocale.pot: '.$/;
-	$postamble .= "\t".'$(NOECHO) xgettext --from-code="UTF-8" `find . -type f -print | grep \'\\.pm$$\'` -o perl-DateLocale.pot'.$/;
+	$postamble .= "\t".'$(NOECHO) '.$xgettext.' --from-code="UTF-8" `find . -type f -print | grep \'\\.pm$$\'` -o perl-DateLocale.pot'.$/;
 	$postamble .= $/."generate.gmo: generate.po".$/;
 	foreach (@$pofiles){
 		$postamble .= "\t$MSGFMT -o $_.gmo share/po/$_.po$/";
