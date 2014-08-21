@@ -50,8 +50,8 @@ WriteMakefile(
 
 my $postamble = "generate.po: perl-DateLocale.pot\n";
 	foreach (@$pofiles){
-		$postamble .= "\t".'$(NOECHO) -'.$msgmerge.' -w 83 share/po/'.$_.'.po perl-DateLocale.pot >'.$_.'.po~'.$/;
-		$postamble .= "\t".'$(NOECHO) -if cmp -s '.$_.'.po~ '.$_.'.po; then rm -f '.$_.'.po~ ; else mv '.$_.'.po~ '.$_.'.po; fi'.$/
+		$postamble .= "\t".'$(NOECHO) '.$msgmerge.' -w 83 share/po/'.$_.'.po perl-DateLocale.pot >'.$_.'.po~'.$/;
+		$postamble .= "\t".'$(NOECHO) if cmp -s '.$_.'.po~ '.$_.'.po; then rm -f '.$_.'.po~ ; else mv '.$_.'.po~ '.$_.'.po; fi'.$/
 	}
 	$postamble .= $/.'perl-DateLocale.pot: '.$/;
 	$postamble .= "\t".'$(NOECHO) '.$xgettext.' --from-code="UTF-8" `find . -type f -print | grep \'\\.pm$$\'` -o perl-DateLocale.pot'.$/;
