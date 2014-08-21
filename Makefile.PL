@@ -28,7 +28,7 @@ for (<./share/po/*.po>) {
 }
 print "\n";
 my $loc = join("|", grep {!/^C$/} @$pofiles);
-my @locales = `locale -a | grep 'UTF-8' | egrep '^(?:$loc)'`;
+my @locales = `locale -a | egrep -i 'UTF\-?8' | egrep '^(?:$loc)'`;
 unless( @locales ){
 	print "Need to install one of $loc locale";
 	exit(0);

@@ -37,7 +37,7 @@ if(setlocale(POSIX::LC_TIME, 'ru_RU.UTF-8')){
 	is_deeply(DateLocale::format_date_ext($_, 5, \@time, ['long', 'long_tooltip']), {long => 'вторник', long_tooltip => 'вторник в 11:22'}, 'date_ext '.$_.' days and 5 sec') for qw /2 3 4/;
 	is_deeply(DateLocale::format_date_ext(5, 5, \@time, ['long', 'long_tooltip']), {long => '11 марта', long_tooltip => '11 марта в 11:22'}, 'date_ext 5 days and 5 sec');
 	is_deeply(DateLocale::format_date_ext(200, 5, \@time, ['long', 'long_tooltip']), {long => '11 мар 14', long_tooltip => '11 марта 2014 в 11:22'}, 'date_ext 200 days and 5 sec');
-	$count_test += 27;
+	$count_test += 29;
 }
 else {
 	warn "ru_RU.UTF-8 not found: skip";
@@ -72,7 +72,7 @@ if(setlocale(POSIX::LC_TIME, 'uk_UA.UTF-8')){
 	is_deeply(DateLocale::format_date_ext($_, 5, \@time, ['long', 'long_tooltip']), {long => 'вівторок', long_tooltip => 'вівторок о 11:22'}, 'date_ext '.$_.' days and 5 sec') for qw /2 3 4/;
 	is_deeply(DateLocale::format_date_ext(5, 5, \@time, ['long', 'long_tooltip']), {long => '11 березня', long_tooltip => '11 березня о 11:22'}, 'date_ext 5 days and 5 sec');
 	is_deeply(DateLocale::format_date_ext(200, 5, \@time, ['long', 'long_tooltip']), {long => '11 бер 14', long_tooltip => '11 березня 2014 о 11:22'}, 'date_ext 200 days and 5 sec');
-	$count_test += 27;
+	$count_test += 29;
 }
 else {
 	warn "uk_UA.UTF-8 not found: skip";
@@ -107,7 +107,7 @@ if(setlocale(POSIX::LC_TIME, 'kk_KZ.UTF-8')){
 	is_deeply(DateLocale::format_date_ext($_, 5, \@time, ['long', 'long_tooltip']), {long => 'сейсенбі', long_tooltip => 'сейсенбі, 11:22'}, 'date_ext '.$_.' days and 5 sec') for qw /2 3 4/;
 	is_deeply(DateLocale::format_date_ext(5, 5, \@time, ['long', 'long_tooltip']), {long => '11 наурызы', long_tooltip => '11 наурызы, 11:22'}, 'date_ext 5 days and 5 sec');
 	is_deeply(DateLocale::format_date_ext(200, 5, \@time, ['long', 'long_tooltip']), {long => '11 нау 14', long_tooltip => '11 наурызы 2014, 11:22'}, 'date_ext 200 days and 5 sec');
-	$count_test += 27;
+	$count_test += 29;
 }
 else {
 	warn "kk_KZ.UTF-8 not found: skip";
@@ -142,7 +142,7 @@ if(setlocale(POSIX::LC_TIME, 'en_US.UTF-8')){
 	is_deeply(DateLocale::format_date_ext($_, 5, \@time, ['long', 'long_tooltip']), {long => 'tuesday', long_tooltip => 'tuesday at 11:22'}, 'date_ext '.$_.' days and 5 sec') for qw /2 3 4/;
 	is_deeply(DateLocale::format_date_ext(5, 5, \@time, ['long', 'long_tooltip']), {long => '11 March', long_tooltip => '11 March at 11:22'}, 'date_ext 5 days and 5 sec');
 	is_deeply(DateLocale::format_date_ext(200, 5, \@time, ['long', 'long_tooltip']), {long => '11 mar 14', long_tooltip => '11 March 2014 at 11:22'}, 'date_ext 200 days and 5 sec');
-	$count_test += 27;
+	$count_test += 29;
 }
 else {
 	warn "en_US.UTF-8 not found: skip";
