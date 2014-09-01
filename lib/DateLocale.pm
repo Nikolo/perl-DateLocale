@@ -5,7 +5,7 @@ use utf8;
 use POSIX qw/setlocale getenv/;
 use Locale::Messages qw(:locale_h :libintl_h);
 use Encode;
-our $VERSION = '1.17';
+our $VERSION = '1.20';
 
 our $share_path = __FILE__;
 $share_path =~ s{\.pm$}{/share/locale};
