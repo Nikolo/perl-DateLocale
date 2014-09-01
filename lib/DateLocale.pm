@@ -2,7 +2,7 @@ package DateLocale;
 
 use strict;
 use utf8;
-use POSIX qw/setlocale/;
+use POSIX qw/setlocale getenv/;
 use Locale::Messages qw(:locale_h :libintl_h);
 use Encode;
 our $VERSION = '1.17';
@@ -12,6 +12,14 @@ $share_path =~ s{\.pm$}{/share/locale};
 
 sub change_locale {
 	my $locale = shift;
+	getenv('LANGUAGE');
+	if((my $language = getenv('LANGUAGE')) && $locale =~ /^(.*?)\..*?$/ ){
+		my $tmp_lang = $1;
+		if( $language !~ /$tmp_lang/ ){
+			warn "Locale ".$tmp_lang." not supported in ENV variable LANGUAGE: ".$language;
+			return;
+		}
+	}
 	my $res = setlocale(POSIX::LC_TIME(), $locale); #for linux
 
 	$ENV{LC_ALL} = $locale; #for freebsd

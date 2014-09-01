@@ -1,5 +1,6 @@
 use strict;
 use inc::Module::Install;
+use Locale::Messages;
 name            'DateLocale';
 abstract        'Perl extension for use localized date';
 author          'Nikolay Shulyakovskiy <shulyakovskiy at mail.ru>';
@@ -14,6 +15,14 @@ my $msgmerge = 'msgmerge';
 requires_external_bin( $MSGFMT );
 requires_external_bin( $xgettext );
 requires_external_bin( $msgmerge );
+
+my $package = 'gettext_xs';
+my $selected = Locale::Messages->select_package ($package);
+if ($selected ne $package) {
+	print "Locale::$package not available here.\n";
+	exit 0;
+}
+
 my $mofiles = "";
 my $pofiles = [];
 my $uninstall = "";
