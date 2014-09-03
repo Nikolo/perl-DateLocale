@@ -5,7 +5,7 @@ use utf8;
 use POSIX qw/setlocale getenv/;
 use Locale::Messages qw(:locale_h :libintl_h);
 use Encode;
-our $VERSION = '1.20';
+our $VERSION = '1.28';
 
 our $share_path = __FILE__;
 $share_path =~ s{\.pm$}{/share/locale};
@@ -49,6 +49,36 @@ sub _fmt_redef {
 }
 
 my %ext_formaters = (
+	'short' => {
+        'less_1min'         => sub { 
+			my ($date, $secs_diff) = @_;
+			return strftime("%H:%M", @$date);
+		},
+        'less_1hour'        => sub { 
+			my ($date, $secs_diff) = @_;
+			return strftime("%H:%M", @$date);
+        },
+        'today'             => sub {
+			my ($date, $secs_diff) = @_;
+			return strftime("%H:%M", @$date);
+        },
+        'yesterday'         => sub { 
+            my ($date, $secs_diff) = @_;        
+			return dcgettext("perl-DateLocale", 'yesterday_short', LC_TIME() );
+		},
+        'between_2_5days'   => sub {    
+            my ($date, $secs_diff) = @_;
+            return strftime("%d %B", @$date);
+        },
+        'this_year'         => sub { 
+            my ($date, $secs_diff) = @_;
+            return strftime("%d %B", @$date);
+        },
+        'before_year'       => sub {
+            my ($date, $secs_diff) = @_;
+            return lc(strftime("%d.%m.%Y", @$date));
+        },
+	},
     'long' => {
         'less_1min'         => sub {dcgettext("perl-DateLocale", 'recent', LC_TIME() ) },
         'less_1hour'        => sub { 

@@ -59,6 +59,9 @@ msgstr "today at %H:%M"
 msgid "yesterday"
 msgstr "yesterday at %H:%M"
 
+msgid "yesterday_short"
+msgstr "yesterday"
+
 msgid "tommorow"
 msgstr "tommorow at %H:%M"
 

@@ -1,6 +1,5 @@
 use strict;
 use inc::Module::Install;
-use Locale::Messages;
 name            'DateLocale';
 abstract        'Perl extension for use localized date';
 author          'Nikolay Shulyakovskiy <shulyakovskiy at mail.ru>';
@@ -8,6 +7,7 @@ license         'mit';
 perl_version    '5.008008';
 no_index        directory => 'share';
 repository      'https://github.com/Nikolo/perl-DateLocale';
+requires        'Locale::Messages';
 
 my $MSGFMT = 'msgfmt';
 my $xgettext = 'xgettext';
@@ -16,10 +16,14 @@ requires_external_bin( $MSGFMT );
 requires_external_bin( $xgettext );
 requires_external_bin( $msgmerge );
 
+my $selected;
 my $package = 'gettext_xs';
-my $selected = Locale::Messages->select_package ($package);
+eval "use Locale::Messages";
+unless( $@ ){
+	$selected = Locale::Messages->select_package ($package);
+};
 if ($selected ne $package) {
-	print "Locale::$package not available here.\n";
+	print "Locale::$package not available here. Please install it and try again\n";
 	exit 0;
 }
 
@@ -50,7 +54,6 @@ WriteMakefile(
 		'lib/DateLocale/Language/ru_RU.pm' => 'blib/man3/DateLocale::Language::ru_RU.3',
 	},
 	PREREQ_PM         => {
-		"Locale::Messages"  => 0,
 		POSIX               => 0,
 	},
 	AUTHOR         => 'Nikolay Shulyakovskiy <shulyakovskiy@mail.ru>',

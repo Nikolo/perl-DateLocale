@@ -53,6 +53,9 @@ msgstr "бүгін, %H:%M"
 msgid "yesterday"
 msgstr "кеше, %H:%M"
 
+msgid "yesterday_short"
+msgstr "кеше"
+
 msgid "tommorow"
 msgstr "ертең, %H:%M"
 

@@ -64,6 +64,9 @@ msgstr "сегодня в %H:%M"
 msgid "yesterday"
 msgstr "вчера в %H:%M"
 
+msgid "yesterday_short"
+msgstr "вчера"
+
 msgid "tommorow"
 msgstr "завтра в %H:%M"
 
