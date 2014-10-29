@@ -8,6 +8,7 @@ use DateLocale;
 
 my $count_test = 0;
 my @time = qw/33 22 11 11 2 114/;
+my @time1 = qw/33 22 7 11 2 114/;
 if(DateLocale::change_locale('ru_RU.UTF-8')){
 	is(DateLocale::strftime('%OB %B', @time), 'март марта', 'Month name');
 	is(DateLocale::strftime( '%Y-%m-%d', @time), '2014-03-11', 'Numeric date');
@@ -36,7 +37,12 @@ if(DateLocale::change_locale('ru_RU.UTF-8')){
 	is_deeply(DateLocale::format_date_ext($_, 5, \@time, ['long', 'long_tooltip', 'short']), {long => 'вторник', long_tooltip => 'вторник в 11:22',short => '11 марта'}, 'date_ext '.$_.' days and 5 sec') for qw /2 3 4/;
 	is_deeply(DateLocale::format_date_ext(5, 5, \@time, ['long', 'long_tooltip', 'short']), {long => '11 марта', long_tooltip => '11 марта в 11:22',short => '11 марта'}, 'date_ext 5 days and 5 sec');
 	is_deeply(DateLocale::format_date_ext(200, 5, \@time, ['long', 'long_tooltip', 'short']), {long => '11 мар 14', long_tooltip => '11 марта 2014 в 11:22',short => '11.03.2014'}, 'date_ext 200 days and 5 sec');
-	$count_test += 29;
+	is_deeply(DateLocale::format_date_ext(0, 5, \@time1, ['short']), {short => ' 7:22'}, 'date_ext 5 sec');
+	is_deeply(DateLocale::format_date_ext(0, 65, \@time1, ['short']), {short => ' 7:22'}, 'date_ext 5 sec');
+	is_deeply(DateLocale::format_date_ext(0, 3605, \@time1, ['short']), {short => ' 7:22'}, 'date_ext 5 sec');
+	is_deeply(DateLocale::format_date_ext(0, 3605*2, \@time1, ['short']), {short => ' 7:22'}, 'date_ext 5 sec');
+	is_deeply(DateLocale::format_date_ext(0, 3605*5, \@time1, ['short']), {short => ' 7:22'}, 'date_ext 5 sec');
+	$count_test += 34;
 }
 else {
 	warn "ru_RU.UTF-8 not found: skip";
@@ -71,7 +77,12 @@ if(DateLocale::change_locale('uk_UA.UTF-8')){
 	is_deeply(DateLocale::format_date_ext($_, 5, \@time, ['long', 'long_tooltip', 'short']), {long => 'вівторок', long_tooltip => 'вівторок о 11:22', short => '11 березня'}, 'date_ext '.$_.' days and 5 sec') for qw /2 3 4/;
 	is_deeply(DateLocale::format_date_ext(5, 5, \@time, ['long', 'long_tooltip', 'short']), {long => '11 березня', long_tooltip => '11 березня о 11:22', short => '11 березня'}, 'date_ext 5 days and 5 sec');
 	is_deeply(DateLocale::format_date_ext(200, 5, \@time, ['long', 'long_tooltip', 'short']), {long => '11 бер 14', long_tooltip => '11 березня 2014 о 11:22', short => '11.03.2014'}, 'date_ext 200 days and 5 sec');
-	$count_test += 29;
+	is_deeply(DateLocale::format_date_ext(0, 5, \@time1, ['short']), {short => ' 7:22'}, 'date_ext 5 sec');
+	is_deeply(DateLocale::format_date_ext(0, 65, \@time1, ['short']), {short => ' 7:22'}, 'date_ext 5 sec');
+	is_deeply(DateLocale::format_date_ext(0, 3605, \@time1, ['short']), {short => ' 7:22'}, 'date_ext 5 sec');
+	is_deeply(DateLocale::format_date_ext(0, 3605*2, \@time1, ['short']), {short => ' 7:22'}, 'date_ext 5 sec');
+	is_deeply(DateLocale::format_date_ext(0, 3605*5, \@time1, ['short']), {short => ' 7:22'}, 'date_ext 5 sec');
+	$count_test += 34;
 }
 else {
 	warn "uk_UA.UTF-8 not found: skip";
@@ -106,7 +117,12 @@ if(DateLocale::change_locale('kk_KZ.UTF-8')){
 	is_deeply(DateLocale::format_date_ext($_, 5, \@time, ['long', 'long_tooltip', 'short']), {long => 'сейсенбі', long_tooltip => 'сейсенбі, 11:22', short => '11 наурызы'}, 'date_ext '.$_.' days and 5 sec') for qw /2 3 4/;
 	is_deeply(DateLocale::format_date_ext(5, 5, \@time, ['long', 'long_tooltip', 'short']), {long => '11 наурызы', long_tooltip => '11 наурызы, 11:22', short => '11 наурызы'}, 'date_ext 5 days and 5 sec');
 	is_deeply(DateLocale::format_date_ext(200, 5, \@time, ['long', 'long_tooltip', 'short']), {long => '11 нау 14', long_tooltip => '11 наурызы 2014, 11:22', short => '11.03.2014'}, 'date_ext 200 days and 5 sec');
-	$count_test += 29;
+	is_deeply(DateLocale::format_date_ext(0, 5, \@time1, ['short']), {short => ' 7:22'}, 'date_ext 5 sec');
+	is_deeply(DateLocale::format_date_ext(0, 65, \@time1, ['short']), {short => ' 7:22'}, 'date_ext 5 sec');
+	is_deeply(DateLocale::format_date_ext(0, 3605, \@time1, ['short']), {short => ' 7:22'}, 'date_ext 5 sec');
+	is_deeply(DateLocale::format_date_ext(0, 3605*2, \@time1, ['short']), {short => ' 7:22'}, 'date_ext 5 sec');
+	is_deeply(DateLocale::format_date_ext(0, 3605*5, \@time1, ['short']), {short => ' 7:22'}, 'date_ext 5 sec');
+	$count_test += 34;
 }
 else {
 	warn "kk_KZ.UTF-8 not found: skip";
@@ -141,7 +157,12 @@ if(DateLocale::change_locale('en_US.UTF-8')){
 	is_deeply(DateLocale::format_date_ext($_, 5, \@time, ['long', 'long_tooltip', 'short']), {long => 'tuesday', long_tooltip => 'tuesday at 11:22', short => '11 March'}, 'date_ext '.$_.' days and 5 sec') for qw /2 3 4/;
 	is_deeply(DateLocale::format_date_ext(5, 5, \@time, ['long', 'long_tooltip', 'short']), {long => '11 March', long_tooltip => '11 March at 11:22', short => '11 March'}, 'date_ext 5 days and 5 sec');
 	is_deeply(DateLocale::format_date_ext(200, 5, \@time, ['long', 'long_tooltip', 'short']), {long => '11 mar 14', long_tooltip => '11 March 2014 at 11:22', short => '11.03.2014'}, 'date_ext 200 days and 5 sec');
-	$count_test += 29;
+	is_deeply(DateLocale::format_date_ext(0, 5, \@time1, ['short']), {short => ' 7:22'}, 'date_ext 5 sec');
+	is_deeply(DateLocale::format_date_ext(0, 65, \@time1, ['short']), {short => ' 7:22'}, 'date_ext 5 sec');
+	is_deeply(DateLocale::format_date_ext(0, 3605, \@time1, ['short']), {short => ' 7:22'}, 'date_ext 5 sec');
+	is_deeply(DateLocale::format_date_ext(0, 3605*2, \@time1, ['short']), {short => ' 7:22'}, 'date_ext 5 sec');
+	is_deeply(DateLocale::format_date_ext(0, 3605*5, \@time1, ['short']), {short => ' 7:22'}, 'date_ext 5 sec');
+	$count_test += 34;
 }
 else {
 	warn "en_US.UTF-8 not found: skip";

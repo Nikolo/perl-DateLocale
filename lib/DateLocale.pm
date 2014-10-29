@@ -50,93 +50,93 @@ sub _fmt_redef {
 
 my %ext_formaters = (
 	'short' => {
-        'less_1min'         => sub { 
+		'less_1min' => sub { 
 			my ($date, $secs_diff) = @_;
-			return strftime("%H:%M", @$date);
+			return strftime("%k:%M", @$date);
 		},
-        'less_1hour'        => sub { 
+		'less_1hour' => sub { 
 			my ($date, $secs_diff) = @_;
-			return strftime("%H:%M", @$date);
-        },
-        'today'             => sub {
+			return strftime("%k:%M", @$date);
+		},
+		'today' => sub {
 			my ($date, $secs_diff) = @_;
-			return strftime("%H:%M", @$date);
-        },
-        'yesterday'         => sub { 
-            my ($date, $secs_diff) = @_;        
+			return strftime("%k:%M", @$date);
+		},
+		'yesterday' => sub { 
+			my ($date, $secs_diff) = @_;		
 			return dcgettext("perl-DateLocale", 'yesterday_short', LC_TIME() );
 		},
-        'between_2_5days'   => sub {    
-            my ($date, $secs_diff) = @_;
-            return strftime("%d %B", @$date);
-        },
-        'this_year'         => sub { 
-            my ($date, $secs_diff) = @_;
-            return strftime("%d %B", @$date);
-        },
-        'before_year'       => sub {
-            my ($date, $secs_diff) = @_;
-            return lc(strftime("%d.%m.%Y", @$date));
-        },
+		'between_2_5days' => sub {	
+			my ($date, $secs_diff) = @_;
+			return strftime("%e %B", @$date);
+		},
+		'this_year' => sub { 
+			my ($date, $secs_diff) = @_;
+			return strftime("%e %B", @$date);
+		},
+		'before_year' => sub {
+			my ($date, $secs_diff) = @_;
+			return lc(strftime("%d.%m.%Y", @$date));
+		},
 	},
-    'long' => {
-        'less_1min'         => sub {dcgettext("perl-DateLocale", 'recent', LC_TIME() ) },
-        'less_1hour'        => sub { 
-            my ($date, $secs_diff) = @_; 
-            my $mins = int($secs_diff / 60) || 0;
-            return "$mins ".dcgettext("perl-DateLocale", 'shortmin', LC_TIME() );
-        },
-        'today'             => sub {
-            my ($date, $secs_diff) = @_;
-            my $hours = int($secs_diff / 3600) || 0;
-            return "$hours ".dcngettext("perl-DateLocale", 'hour', 'hour', $hours, LC_TIME() );
-        },
-        'yesterday'         => sub { 
-            my ($date, $secs_diff) = @_;        
+	'long' => {
+		'less_1min' => sub {dcgettext("perl-DateLocale", 'recent', LC_TIME() ) },
+		'less_1hour' => sub { 
+			my ($date, $secs_diff) = @_; 
+			my $mins = int($secs_diff / 60) || 0;
+			return "$mins ".dcgettext("perl-DateLocale", 'shortmin', LC_TIME() );
+		},
+		'today' => sub {
+			my ($date, $secs_diff) = @_;
+			my $hours = int($secs_diff / 3600) || 0;
+			return "$hours ".dcngettext("perl-DateLocale", 'hour', 'hour', $hours, LC_TIME() );
+		},
+		'yesterday' => sub { 
+			my ($date, $secs_diff) = @_;		
 			return strftime(dcgettext("perl-DateLocale", 'yesterday', LC_TIME() ), @$date );
 		},
-        'between_2_5days'   => sub {    
-            my ($date, $secs_diff) = @_;
-            return lc(strftime("%A", @$date));
-        },
-        'this_year'         => sub { 
-            my ($date, $secs_diff) = @_;
-            return strftime("%d %B", @$date);
-        },
-        'before_year'       => sub {
-            my ($date, $secs_diff) = @_;
-            return lc(strftime("%d %b %y", @$date));
-        },
-    },
-    'long_tooltip' => {
-        'less_1min'         => sub { dcgettext("perl-DateLocale", 'recent', LC_TIME() ) },
-        'less_1hour'        => sub { 
-            my ($date, $secs_diff) = @_; 
-            my $mins = int($secs_diff / 60) || 0;
+		'between_2_5days' => sub {	
+			my ($date, $secs_diff) = @_;
+			return lc(strftime("%A", @$date));
+		},
+		'this_year'		 => sub { 
+			my ($date, $secs_diff) = @_;
+			return strftime("%d %B", @$date);
+		},
+		'before_year'	   => sub {
+			my ($date, $secs_diff) = @_;
+			return lc(strftime("%d %b %y", @$date));
+		},
+	},
+	'long_tooltip' => {
+		'less_1min'		 => sub { dcgettext("perl-DateLocale", 'recent', LC_TIME() ) },
+		'less_1hour'		=> sub { 
+			my ($date, $secs_diff) = @_; 
+			my $mins = int($secs_diff / 60) || 0;
 			return "$mins ".dcngettext("perl-DateLocale", 'min', 'min', $mins, LC_TIME() );
-        },
-        'today'             => sub {
-            my ($date, $secs_diff) = @_;
-            my $hours = int($secs_diff / 3600) || 0;
+		},
+		'today'			 => sub {
+			my ($date, $secs_diff) = @_;
+			my $hours = int($secs_diff / 3600) || 0;
 			return "$hours ".dcngettext("perl-DateLocale", 'hour', 'hour', $hours, LC_TIME() );
-        },
-        'yesterday'         => sub { 
-            my ($date, $secs_diff) = @_;        
-            return period_name_by_days(1, $date);
-        },
-        'between_2_5days'   => sub {    
-            my ($date, $secs_diff) = @_;        
+		},
+		'yesterday'		 => sub { 
+			my ($date, $secs_diff) = @_;		
+			return period_name_by_days(1, $date);
+		},
+		'between_2_5days'   => sub {	
+			my ($date, $secs_diff) = @_;		
 			return lc(strftime(dcgettext("perl-DateLocale", 'weekdaywithtime', LC_TIME() ), @$date));
-        },
-        'this_year'         => sub { 
-            my ($date, $secs_diff) = @_;
+		},
+		'this_year'		 => sub { 
+			my ($date, $secs_diff) = @_;
 			return strftime(dcgettext("perl-DateLocale", 'monthdaywithtime', LC_TIME() ), @$date);
-        },
-        'before_year'       => sub {
-            my ($date, $secs_diff) = @_;
+		},
+		'before_year'	   => sub {
+			my ($date, $secs_diff) = @_;
 			return strftime(dcgettext("perl-DateLocale", 'yeardaywithtime', LC_TIME() ), @$date);
-        },
-    },
+		},
+	},
 );
 
 =head1 PUBLIC FUNCTIONS
@@ -178,41 +178,41 @@ Arguments
 =cut
 
 sub format_date_ext {
-    my ($days, $seconds, $date, $format) = @_;
-    my $formated;
-    for my $f (@$format) {
-        my $formater = sub { my $name = shift; my $ret = $ext_formaters{$f}->{$name}->(@_); Encode::_utf8_on($ret); return $ret;};
-        die "Format $f not supported" unless $formater;
-        if ($days > 1) {
-            #more than 1 day ago
-            if($days > 1 && $days < 5) {
-                #less than 5 days and more than 1 day ago
-                $formated->{$f} = $formater->('between_2_5days', $date, $seconds);
-            } elsif (strftime("%j", @$date) > $days) {
-                #at this year
-                $formated->{$f} = $formater->('this_year', $date, $seconds);
-            } else {
-                #not at this year
-                $formated->{$f} = $formater->('before_year', $date, $seconds);
-            }
-        } elsif ($days == 1) {
-            #yesterday
-            $formated->{$f} = $formater->( 'yesterday', $date, $seconds);
-        } else {
-            #today
-            if($seconds < 60) {
-                #less than 1 minute
-                $formated->{$f} = $formater->('less_1min', $date, $seconds);
-            } elsif ($seconds < 60*60) {
-                #less than 1 hour
-                $formated->{$f} = $formater->('less_1hour', $date, $seconds);
-            } else {
-                #more than 1 hour
-                $formated->{$f} = $formater->('today', $date, $seconds);
-            }
-        }
-    }
-    return $formated;
+	my ($days, $seconds, $date, $format) = @_;
+	my $formated;
+	for my $f (@$format) {
+		my $formater = sub { my $name = shift; my $ret = $ext_formaters{$f}->{$name}->(@_); Encode::_utf8_on($ret); return $ret;};
+		die "Format $f not supported" unless $formater;
+		if ($days > 1) {
+			#more than 1 day ago
+			if($days > 1 && $days < 5) {
+				#less than 5 days and more than 1 day ago
+				$formated->{$f} = $formater->('between_2_5days', $date, $seconds);
+			} elsif (strftime("%j", @$date) > $days) {
+				#at this year
+				$formated->{$f} = $formater->('this_year', $date, $seconds);
+			} else {
+				#not at this year
+				$formated->{$f} = $formater->('before_year', $date, $seconds);
+			}
+		} elsif ($days == 1) {
+			#yesterday
+			$formated->{$f} = $formater->( 'yesterday', $date, $seconds);
+		} else {
+			#today
+			if($seconds < 60) {
+				#less than 1 minute
+				$formated->{$f} = $formater->('less_1min', $date, $seconds);
+			} elsif ($seconds < 60*60) {
+				#less than 1 hour
+				$formated->{$f} = $formater->('less_1hour', $date, $seconds);
+			} else {
+				#more than 1 hour
+				$formated->{$f} = $formater->('today', $date, $seconds);
+			}
+		}
+	}
+	return $formated;
 }
 
 =head2 strftime
