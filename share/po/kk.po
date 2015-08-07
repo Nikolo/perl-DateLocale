@@ -20,6 +20,9 @@ msgstr "күн"
 msgid "min"
 msgstr "минут"
 
+msgid "min_ago"
+msgstr "минут бұрын"
+
 msgid "shortmin"
 msgstr "мин"
 
@@ -43,6 +46,9 @@ msgstr "%d %B %Y"
 
 msgid "hour"
 msgstr "сағат"
+
+msgid "hour_ago"
+msgstr "сағат бұрын"
 
 msgid "fmtdateoccured"
 msgstr "%d %B %Y жылдың"

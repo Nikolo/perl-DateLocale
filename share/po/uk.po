@@ -28,6 +28,12 @@ msgstr[0] "хвилина"
 msgstr[1] "хвилини"
 msgstr[2] "хвилин"
 
+msgid "min_ago"
+msgid_plural "min_ago"
+msgstr[0] "хвилину тому"
+msgstr[1] "хвилини тому"
+msgstr[2] "хвилин тому"
+
 msgid "shortmin"
 msgstr "хв"
 
@@ -54,6 +60,12 @@ msgid_plural "hour"
 msgstr[0] "година"
 msgstr[1] "години"
 msgstr[2] "годин"
+
+msgid "hour_ago"
+msgid_plural "hour_ago"
+msgstr[0] "година тому"
+msgstr[1] "години тому"
+msgstr[2] "годин тому"
 
 msgid "fmtdateoccured"
 msgstr "%d %B %Y року"
