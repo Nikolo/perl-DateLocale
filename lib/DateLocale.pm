@@ -5,7 +5,7 @@ use utf8;
 use POSIX qw/setlocale getenv/;
 use Locale::Messages qw(:locale_h :libintl_h);
 use Encode;
-our $VERSION = '1.29';
+our $VERSION = '1.30';
 
 our $share_path = __FILE__;
 $share_path =~ s{\.pm$}{/share/locale};
@@ -66,7 +66,7 @@ my %ext_formaters = (
 			my ($date, $secs_diff) = @_;		
 			return dcgettext("perl-DateLocale", 'yesterday_short', LC_TIME() );
 		},
-		'between_2_5days' => sub {	
+		'between_2_4days' => sub {	
 			my ($date, $secs_diff) = @_;
 			return strftime("%e %B", @$date);
 		},
@@ -95,7 +95,7 @@ my %ext_formaters = (
 			my ($date, $secs_diff) = @_;		
 			return strftime(dcgettext("perl-DateLocale", 'yesterday', LC_TIME() ), @$date );
 		},
-		'between_2_5days' => sub {	
+		'between_2_4days' => sub {	
 			my ($date, $secs_diff) = @_;
 			return lc(strftime("%A", @$date));
 		},
@@ -113,18 +113,18 @@ my %ext_formaters = (
 		'less_1hour'		=> sub { 
 			my ($date, $secs_diff) = @_; 
 			my $mins = int($secs_diff / 60) || 0;
-			return "$mins ".dcngettext("perl-DateLocale", 'min', 'min', $mins, LC_TIME() );
+			return "$mins ".dcngettext("perl-DateLocale", 'min_ago', 'min_ago', $mins, LC_TIME() );
 		},
 		'today'			 => sub {
 			my ($date, $secs_diff) = @_;
 			my $hours = int($secs_diff / 3600) || 0;
-			return "$hours ".dcngettext("perl-DateLocale", 'hour', 'hour', $hours, LC_TIME() );
+			return "$hours ".dcngettext("perl-DateLocale", 'hour_ago', 'hour_ago', $hours, LC_TIME() );
 		},
 		'yesterday'		 => sub { 
 			my ($date, $secs_diff) = @_;		
 			return period_name_by_days(1, $date);
 		},
-		'between_2_5days'   => sub {	
+		'between_2_4days'   => sub {	
 			my ($date, $secs_diff) = @_;		
 			return lc(strftime(dcgettext("perl-DateLocale", 'weekdaywithtime', LC_TIME() ), @$date));
 		},
@@ -187,8 +187,8 @@ sub format_date_ext {
 			#more than 1 day ago
 			if($days > 1 && $days < 5) {
 				#less than 5 days and more than 1 day ago
-				$formated->{$f} = $formater->('between_2_5days', $date, $seconds);
-			} elsif (strftime("%j", @$date) > $days) {
+				$formated->{$f} = $formater->('between_2_4days', $date, $seconds);
+			} elsif (strftime("%Y", @$date) eq strftime("%Y", gmtime)) {
 				#at this year
 				$formated->{$f} = $formater->('this_year', $date, $seconds);
 			} else {

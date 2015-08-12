@@ -24,6 +24,11 @@ msgid_plural "min"
 msgstr[0] "minute"
 msgstr[1] "minutes"
 
+msgid "min_ago"
+msgid_plural "min_ago"
+msgstr[0] "minute ago"
+msgstr[1] "minutes ago"
+
 msgid "shortmin"
 msgstr "min"
 
@@ -49,6 +54,11 @@ msgid "hour"
 msgid_plural "hour"
 msgstr[0] "hour"
 msgstr[1] "hours"
+
+msgid "hour_ago"
+msgid_plural "hour_ago"
+msgstr[0] "hour ago"
+msgstr[1] "hours ago"
 
 msgid "fmtdateoccured"
 msgstr "On %B %d, %Y"

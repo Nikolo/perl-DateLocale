@@ -28,6 +28,12 @@ msgstr[0] "минута"
 msgstr[1] "минуты"
 msgstr[2] "минут"
 
+msgid "min_ago"
+msgid_plural "min_ago"
+msgstr[0] "минуту назад"
+msgstr[1] "минуты назад"
+msgstr[2] "минут назад"
+
 msgid "shortmin"
 msgstr "мин"
 
@@ -54,6 +60,12 @@ msgid_plural "hour"
 msgstr[0] "час"
 msgstr[1] "часа"
 msgstr[2] "часов"
+
+msgid "hour_ago"
+msgid_plural "hour_ago"
+msgstr[0] "час назад"
+msgstr[1] "часа назад"
+msgstr[2] "часов назад"
 
 msgid "fmtdateoccured"
 msgstr "%d %B %Y года"
