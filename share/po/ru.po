@@ -41,19 +41,19 @@ msgid "weekdaywithtime"
 msgstr "%A в %H:%M"
 
 msgid "monthdaywithtime"
-msgstr "%d %B в %H:%M"
+msgstr "%e %B в %H:%M"
 
 msgid "yeardaywithtime"
-msgstr "%d %B %Y в %H:%M"
+msgstr "%e %B %Y в %H:%M"
 
 msgid "weekdaywithouttime"
 msgstr "%A"
 
 msgid "monthdaywithouttime"
-msgstr "%d %B"
+msgstr "%e %B"
 
 msgid "yeardaywithouttime"
-msgstr "%d %B %Y"
+msgstr "%e %B %Y"
 
 msgid "hour"
 msgid_plural "hour"
@@ -68,7 +68,7 @@ msgstr[1] "часа назад"
 msgstr[2] "часов назад"
 
 msgid "fmtdateoccured"
-msgstr "%d %B %Y года"
+msgstr "%e %B %Y года"
 
 msgid "today"
 msgstr "сегодня в %H:%M"

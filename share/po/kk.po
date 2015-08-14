@@ -30,19 +30,19 @@ msgid "weekdaywithtime"
 msgstr "%A, %H:%M"
 
 msgid "monthdaywithtime"
-msgstr "%d %B, %H:%M"
+msgstr "%e %B, %H:%M"
 
 msgid "yeardaywithtime"
-msgstr "%d %B %Y, %H:%M"
+msgstr "%e %B %Y, %H:%M"
 
 msgid "weekdaywithouttime"
 msgstr "%A"
 
 msgid "monthdaywithouttime"
-msgstr "%d %B"
+msgstr "%e %B"
 
 msgid "yeardaywithouttime"
-msgstr "%d %B %Y"
+msgstr "%e %B %Y"
 
 msgid "hour"
 msgstr "сағат"
@@ -51,7 +51,7 @@ msgid "hour_ago"
 msgstr "сағат бұрын"
 
 msgid "fmtdateoccured"
-msgstr "%d %B %Y жылдың"
+msgstr "%e %B %Y жылдың"
 
 msgid "today"
 msgstr "бүгін, %H:%M"
