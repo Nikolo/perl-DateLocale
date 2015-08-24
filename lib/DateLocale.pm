@@ -5,7 +5,7 @@ use utf8;
 use POSIX qw/setlocale getenv/;
 use Locale::Messages qw(:locale_h :libintl_h);
 use Encode;
-our $VERSION = '1.32';
+our $VERSION = '1.34';
 
 our $share_path = __FILE__;
 $share_path =~ s{\.pm$}{/share/locale};
@@ -50,6 +50,10 @@ sub _fmt_redef {
 
 my %ext_formaters = (
 	'short' => {
+		'future'    => sub {
+			my ($date, $secs_diff) = @_;
+			return lc(strftime("%d.%m.%Y", @$date));
+		},
 		'less_1min' => sub { 
 			my ($date, $secs_diff) = @_;
 			return strftime("%k:%M", @$date);
@@ -80,6 +84,10 @@ my %ext_formaters = (
 		},
 	},
 	'long' => {
+		'future'	   => sub {
+			my ($date, $secs_diff) = @_;
+			return lc(strftime("%d %b %y", @$date));
+		},
 		'less_1min' => sub {dcgettext("perl-DateLocale", 'recent', LC_TIME() ) },
 		'less_1hour' => sub { 
 			my ($date, $secs_diff) = @_; 
@@ -109,7 +117,11 @@ my %ext_formaters = (
 		},
 	},
 	'long_tooltip' => {
-		'less_1min'		 => sub { dcgettext("perl-DateLocale", 'recent', LC_TIME() ) },
+                'future'                => sub {
+			my ($date, $secs_diff) = @_;
+			return strftime(dcgettext("perl-DateLocale", 'yeardaywithtime', LC_TIME() ), @$date);
+		},
+		'less_1min'             => sub { dcgettext("perl-DateLocale", 'recent', LC_TIME() ) },
 		'less_1hour'		=> sub { 
 			my ($date, $secs_diff) = @_; 
 			my $mins = int($secs_diff / 60) || 0;
