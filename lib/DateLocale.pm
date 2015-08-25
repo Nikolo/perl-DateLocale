@@ -5,7 +5,7 @@ use utf8;
 use POSIX qw/setlocale getenv/;
 use Locale::Messages qw(:locale_h :libintl_h);
 use Encode;
-our $VERSION = '1.34';
+our $VERSION = '1.36';
 
 our $share_path = __FILE__;
 $share_path =~ s{\.pm$}{/share/locale};
@@ -210,6 +210,9 @@ sub format_date_ext {
 		} elsif ($days == 1) {
 			#yesterday
 			$formated->{$f} = $formater->( 'yesterday', $date, $seconds);
+		} elsif ( $days < 0 ){
+			#in the future
+			$formated->{$f} = $formater->( 'future', $date, $seconds);
 		} else {
 			#today
 			if($seconds < 60) {
