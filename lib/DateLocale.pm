@@ -210,7 +210,7 @@ sub format_date_ext {
 		} elsif ($days == 1) {
 			#yesterday
 			$formated->{$f} = $formater->( 'yesterday', $date, $seconds);
-		} elsif ( $days < 0 ){
+		} elsif ( $days < 0 || $seconds < 0 ){
 			#in the future
 			$formated->{$f} = $formater->( 'future', $date, $seconds);
 		} else {
