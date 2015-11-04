@@ -1,13 +1,16 @@
 use strict;
 use inc::Module::Install;
+
 name            'DateLocale';
 abstract        'Perl extension for use localized date';
 author          'Nikolay Shulyakovskiy <shulyakovskiy at mail.ru>';
 license         'mit';
 perl_version    '5.008008';
+all_from        'lib/DateLocale.pm';
 no_index        directory => 'share';
 repository      'https://github.com/Nikolo/perl-DateLocale';
 requires        'Locale::Messages';
+requires        'POSIX';
 
 my $MSGFMT = 'msgfmt';
 my $xgettext = 'xgettext';
@@ -46,6 +49,7 @@ unless( @locales ){
 	print "Need to install one of $loc locale";
 	exit(0);
 }
+=rem
 WriteMakefile(
 	'NAME'         => 'DateLocale',
 	'VERSION_FROM' => 'lib/DateLocale.pm',      # finds $VERSION
@@ -59,7 +63,8 @@ WriteMakefile(
 	AUTHOR         => 'Nikolay Shulyakovskiy <shulyakovskiy@mail.ru>',
 	'clean' => { FILES => $mofiles." perl-DateLocale.pot ".join(" ",map {$_.".po"}  @$pofiles)." META.yml" }
 );
-
+=cut
+WriteAll();
 my $postamble = "generate.po: perl-DateLocale.pot\n";
 	foreach (@$pofiles){
 		$postamble .= "\t".'$(NOECHO) '.$msgmerge.' -w 83 share/po/'.$_.'.po perl-DateLocale.pot >'.$_.'.po~'.$/;
