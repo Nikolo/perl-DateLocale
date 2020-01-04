@@ -1,4 +1,5 @@
 use strict;
+use lib ".";
 use inc::Module::Install;
 
 name            'DateLocale';
@@ -37,10 +38,10 @@ print "Portable message objects...";
 my $alltarget = "update-gmo";
 for (<./share/po/*.po>) {
 	my ($po) = /.\/share\/po\/(.*)\.po$/;
-    print " $po";
+	print " $po";
 	push @$pofiles, $po;
 	$uninstall .= "	\$(RM_F) \$(datadir)/locale/$po/LC_TIME/perl-DateLocale.mo\n";
-    $mofiles   .= " $po.gmo";
+	$mofiles   .= " $po.gmo";
 }
 print "\n";
 my $loc = join("|", grep {!/^C$/} @$pofiles);
@@ -64,7 +65,6 @@ WriteMakefile(
 	'clean' => { FILES => $mofiles." perl-DateLocale.pot ".join(" ",map {$_.".po"}  @$pofiles)." META.yml" }
 );
 =cut
-WriteAll();
 my $postamble = "generate.po: perl-DateLocale.pot\n";
 	foreach (@$pofiles){
 		$postamble .= "\t".'$(NOECHO) '.$msgmerge.' -w 83 share/po/'.$_.'.po perl-DateLocale.pot >'.$_.'.po~'.$/;
@@ -92,3 +92,4 @@ clean ::
 XXX
 ;
 postamble( $postamble );
+WriteAll();
