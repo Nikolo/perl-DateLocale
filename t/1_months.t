@@ -37,7 +37,7 @@ if(DateLocale::change_locale('ru_RU.UTF-8')){
 	is_deeply(DateLocale::format_date_ext(1, 5, \@time, ['long', 'long_tooltip', 'short']), {long => 'вчера в 11:22', long_tooltip => 'вчера в 11:22', short => 'вчера'}, 'date_ext 1 day and 5 sec');
 	is_deeply(DateLocale::format_date_ext($_, 5, \@time, ['long', 'long_tooltip', 'short']), {long => 'вторник', long_tooltip => 'вторник в 11:22',short => '11 марта'}, 'date_ext '.$_.' days and 5 sec') for qw /2 3 4/;
 	is_deeply(DateLocale::format_date_ext(5, 5, \@time2, ['long', 'long_tooltip', 'short']), {long => '11 марта', long_tooltip => '11 марта в 11:22',short => '11 марта'}, 'date_ext 5 days and 5 sec');
-	is_deeply(DateLocale::format_date_ext(200, 5, \@time, ['long', 'long_tooltip', 'short']), {long => POSIX::strftime("%d %b %y", 0, 0, 0, 11, 2, 2014), long_tooltip => '11 марта 2014 в 11:22',short => '11.03.2014'}, 'date_ext 200 days and 5 sec');
+	is_deeply(DateLocale::format_date_ext(200, 5, \@time, ['long', 'long_tooltip', 'short']), {long => lc(POSIX::strftime("%d %b %y", 0, 0, 0, 11, 2, 2014)), long_tooltip => '11 марта 2014 в 11:22',short => '11.03.2014'}, 'date_ext 200 days and 5 sec');
 	is_deeply(DateLocale::format_date_ext(0, 5, \@time1, ['short']), {short => ' 7:22'}, 'date_ext 5 sec');
 	is_deeply(DateLocale::format_date_ext(0, 65, \@time1, ['short']), {short => ' 7:22'}, 'date_ext 5 sec');
 	is_deeply(DateLocale::format_date_ext(0, 3605, \@time1, ['short']), {short => ' 7:22'}, 'date_ext 5 sec');
