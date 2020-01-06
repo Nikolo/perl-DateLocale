@@ -26,4 +26,4 @@ requires:
 resources:
   license: http://opensource.org/licenses/mit-license.php
   repository: https://github.com/Nikolo/perl-DateLocale
-version: '1.44'
+version: '1.46'
