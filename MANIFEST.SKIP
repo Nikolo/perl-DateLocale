@@ -1,0 +1,9 @@
+\.tar\.gz
+.git
+.swp
+blib
+^...po
+\.pot
+Makefile$
+MANIFEST\.
+MYMETA
