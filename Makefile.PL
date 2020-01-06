@@ -29,7 +29,7 @@ for (<./share/po/*.po>) {
     my ($po) = /.\/share\/po\/(.*)\.po$/;
     print " $po";
     push @$pofiles, $po;
-    $uninstall .= "    \$(RM_F) \$(datadir)/locale/$po/LC_TIME/perl-DateLocale.mo\n";
+    $uninstall .= "\t\$(RM_F) \$(datadir)/locale/$po/LC_TIME/perl-DateLocale.mo\n";
     $mofiles   .= " $po.gmo";
 }
 print "\n";
@@ -42,19 +42,19 @@ unless( @locales ){
 
 my $postamble = "generate.po: perl-DateLocale.pot\n";
     foreach (@$pofiles){
-        $postamble .= "\t".'$(NOECHO) '.$msgmerge.' -w 83 share/po/'.$_.'.po perl-DateLocale.pot >'.$_.'.po~'.$/;
-        $postamble .= "\t".'$(NOECHO) if cmp -s '.$_.'.po~ '.$_.'.po; then rm -f '.$_.'.po~ ; else mv '.$_.'.po~ '.$_.'.po; fi'.$/;
+        $postamble .= "\t" . '$(NOECHO) ' . $msgmerge . ' -w 83 share/po/' . $_ . '.po perl-DateLocale.pot >' . $_ . '.po~' . $/;
+        $postamble .= "\t" . '$(NOECHO) if cmp -s ' . $_ . '.po~ ' . $_ . '.po; then rm -f ' . $_ . '.po~ ; else mv ' . $_ . '.po~ ' . $_ . '.po; fi' . $/;
         clean_files $_ . '.po';
     }
     $postamble .= $/.'perl-DateLocale.pot: '.$/;
-    $postamble .= "\t".'$(NOECHO) '.$xgettext.' --from-code="UTF-8" `find . -type f -print | grep \'\\.pm$$\'` -o perl-DateLocale.pot'.$/;
+    $postamble .= "\t".'$(NOECHO) ' . $xgettext . ' --from-code="UTF-8" `find . -type f -print | grep \'\\.pm$$\'` -o perl-DateLocale.pot' . $/;
     clean_files 'perl-DateLocale.pot';
     $postamble .= $/."generate.gmo: generate.po".$/;
     foreach (@$pofiles){
-        $postamble .= "\t$MSGFMT -o $_.gmo share/po/$_.po$/";
-        $postamble .= "\t".'$(NOECHO) $(MKPATH) blib/lib/DateLocale/share/locale/'.$_.'/LC_TIME'.$/;
-        $postamble .= "\t".'$(NOECHO) $(MV) '.$_.'.gmo blib/lib/DateLocale/share/locale/'.$_.'/LC_TIME/perl-DateLocale.mo'.$/;
-        $postamble .= "\t".'$(NOECHO) $(CHMOD) 644 blib/lib/DateLocale/share/locale/'.$_.'/LC_TIME/perl-DateLocale.mo'.$/;
+        $postamble .= "\t" . '$(NOECHO) ' . "$MSGFMT -o $_.gmo share/po/$_.po$/";
+        $postamble .= "\t" . '$(NOECHO) $(MKPATH) blib/lib/DateLocale/share/locale/' . $_ . '/LC_TIME' . $/;
+        $postamble .= "\t" . '$(NOECHO) $(MV) ' . $_ . '.gmo blib/lib/DateLocale/share/locale/' . $_ . '/LC_TIME/perl-DateLocale.mo' . $/;
+        $postamble .= "\t" . '$(NOECHO) $(CHMOD) 644 blib/lib/DateLocale/share/locale/' . $_ . '/LC_TIME/perl-DateLocale.mo' . $/;
     }
 $postamble .= <<XXX
 all :: generate.gmo 
@@ -65,7 +65,7 @@ uninstall-po ::
 $uninstall
 
 clean ::
-    test -f Makefile || mv -f Makefile.old Makefile
+	test -f Makefile || mv -f Makefile.old Makefile
 XXX
 ;
 postamble( $postamble );
